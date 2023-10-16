@@ -83,7 +83,6 @@ class TupleTests(unittest.TestCase):
         self.assertTrue(v.normalize() == Vector(1,0,0))
 
         v = Vector(1,2,3)
-        print(v.normalize())
         self.assertTrue(v.normalize() == Vector(.2672612419124244,.5345224838248488,.8017837257372732))
 
     def test_dot_product(self):
@@ -94,8 +93,8 @@ class TupleTests(unittest.TestCase):
     def test_cross_product(self):
         v1 = Vector(1,2,3)
         v2 = Vector(2,3,4)
-        self.assertTrue(Tuple.cross_prodct(v1, v2) == Vector(-1,2,-1))
-        self.assertTrue(Tuple.cross_prodct(v2, v1) == Vector(1,-2,1))
+        self.assertTrue(Tuple.cross_product(v1, v2) == Vector(-1,2,-1))
+        self.assertTrue(Tuple.cross_product(v2, v1) == Vector(1,-2,1))
 
     
 

@@ -16,9 +16,10 @@ class Tuple:
         return self.w == 0.0
     
     def __eq__(self, other: object) -> bool:
-        return (self.x == other.x and 
-                self.y == other.y and 
-                self.z == other.z and 
+        tolerance = 1e-9  # adjust as needed
+        return (abs(self.x - other.x) < tolerance and 
+                abs(self.y - other.y) < tolerance and 
+                abs(self.z - other.z) < tolerance and 
                 self.w == other.w)
     
     def __add__(self, other):
@@ -73,7 +74,7 @@ class Tuple:
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
     
     @staticmethod
-    def cross_prodct(v1, v2):
+    def cross_product(v1, v2):
         if v1.w != 0 or v2.w != 0:
             raise ValueError("Dot Product is only defined for vectors, not points.")
         return Vector(
@@ -81,7 +82,6 @@ class Tuple:
             v1.z * v2.x - v1.x * v2.z,
             v1.x * v2.y - v1.y * v2.x
         )
-
 
 
 def Point(x, y, z):
