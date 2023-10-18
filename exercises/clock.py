@@ -16,12 +16,9 @@ def main():
 
     canvas = Canvas(width, height)
 
-
     center = Point(width/2,height/2,0)
     clock_radius = 3 * width / 8
     twelve = Point(clock_radius, 0, 0)
-
-
 
     for i in range(12):
         r = Rotation_Y(i * (pi/6))

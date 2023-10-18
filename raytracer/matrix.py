@@ -1,4 +1,3 @@
-import math
 from raytracer.tuples import Tuple
 
 class Matrix:
