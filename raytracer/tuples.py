@@ -50,16 +50,11 @@ class Tuple:
     
     def magnitude(self):
         #magnitude is the distance represented by a vector
-        if self.w != 0:
-            raise ValueError("Magnitude is only defined for vectors, not points.")
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
     
     def normalize(self):
         # Normalization is the process of taking an arbitrary vector and converting it into a unit vector.
         # It will keep calculations anchored to a common scale (the unit vector).
-        if self.w != 0:
-            raise ValueError("Normalize is only defined for vectors, not points.")
-        
         mag = self.magnitude()
         
         if mag == 0:

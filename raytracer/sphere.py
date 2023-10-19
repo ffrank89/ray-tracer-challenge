@@ -32,6 +32,11 @@ class Sphere:
         t2 = Intersection((-b + sqrt(discriminant)) / (2*a), self)
 
         return Intersection.intersections(t1, t2)
+    
+    def normal_at(self, point: Point):
+        #you find the normal by taking the point in question and subtracting the origin of the sphere
+        point - Point(0, 0, 0)
+        return point.normalize()
 
         
 
