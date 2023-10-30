@@ -1,6 +1,6 @@
 class Intersection:
 
-    def __init__(self, t, object):
+    def __init__(self, t: int, object):
         self.t = t
         self.object = object
 

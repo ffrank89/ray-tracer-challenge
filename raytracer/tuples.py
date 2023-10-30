@@ -1,4 +1,5 @@
 import math
+from raytracer.light import Light
 
 class Tuple:
 
@@ -16,7 +17,7 @@ class Tuple:
         return self.w == 0.0
     
     def __eq__(self, other: object) -> bool:
-        tolerance = 1e-9  # adjust as needed
+        tolerance = 1e-4  # adjust as needed
         return (abs(self.x - other.x) < tolerance and 
                 abs(self.y - other.y) < tolerance and 
                 abs(self.z - other.z) < tolerance and 
@@ -41,6 +42,9 @@ class Tuple:
     def __str__(self):
         return f"({self.x}, {self.y}, {self.z}, {self.w})"
     
+    def reflect(self, normal):
+        return self - normal.scale(2).scale(Tuple.dot_product(self, normal))
+    
     def scale(self, scalar):
         return Tuple(self.x * scalar, self.y * scalar, self.z * scalar, self.w * scalar)
     
@@ -61,6 +65,10 @@ class Tuple:
             raise ValueError("Cannot normalize a zero vector.")
         
         return Vector(self.x / mag, self.y / mag, self.z / mag)
+    
+    #intensity is a color... should this go somewhere else?
+    def point_light(self, intensity):
+        return Light(self, intensity)
     
     @staticmethod
     def dot_product(v1, v2):
@@ -84,4 +92,6 @@ def Point(x, y, z):
 
 def Vector(x, y, z):
     return Tuple(x, y, z, 0.0)
+
+
     

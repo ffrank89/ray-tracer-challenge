@@ -1,6 +1,8 @@
 import unittest
-from raytracer.transformations import Translation, Scaling, Rotation_X, Rotation_Y, Rotation_Z, Shearing
+from raytracer.transformations import Translation, Scaling, Rotation_X, Rotation_Y, Rotation_Z, Shearing, view_transform
 from raytracer.tuples import Tuple, Vector, Point
+from raytracer.matrix import Matrix, IDENTITY
+
 from math import pi, sqrt
 class TransformationTests(unittest.TestCase):
 
@@ -130,6 +132,42 @@ class TransformationTests(unittest.TestCase):
         T = C.matrix_multiply(B).matrix_multiply(A)
 
         self.assertEqual(T.tuple_multiply(p), Point(15,0,7))
+
+
+    def test_default_orientation(self):
+        fromm = Point(0,0,0)
+        to = Point(0,0,-1)
+        up = Vector(0,1,0)
+        t = view_transform(fromm, to, up)
+        self.assertEqual(t, IDENTITY)
+
+    def test_look_in_positive_z_direction(self):
+        fromm = Point(0,0,0)
+        to = Point(0,0,1)
+        up = Vector(0,1,0)
+        t = view_transform(fromm, to, up)
+        self.assertEqual(t, Scaling(-1,1,-1))
+
+    def test_view_transformation_moves_world(self):
+        fromm = Point(0,0,8)
+        to = Point(0,0,0)
+        up = Vector(0,1,0)
+        t = view_transform(fromm, to, up)
+        self.assertEqual(t, Translation(0,0,-8))
+ 
+    def test_arbitrary_view_transformation(self):
+        fromm = Point(1,3,2)
+        to = Point(4,-2,8)
+        up = Vector(1,1,0)
+        t = view_transform(fromm, to, up)
+
+        matrix_data = [
+            [-.50709,.50709,.67612,-2.36643],
+            [.76772,.60609,.12122,-2.82843],
+            [-.35857,.59761,-.71714,0],
+            [0,0,0,1]
+        ]
+        self.assertEqual(t, Matrix(4, matrix_data))
 
 if __name__ == "__main__":
     unittest.main()

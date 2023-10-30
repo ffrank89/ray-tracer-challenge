@@ -15,7 +15,6 @@ class Color(Tuple):
     def hadamard_product(c1,c2):
         return Color(c1.red() * c2.red(), c1.green() * c2.green(), c1.blue() * c2.blue())
 
-    
     def magnitude(self):
         raise ValueError("Magnitude is not defined for Color objects.")
 
@@ -28,11 +27,10 @@ class Color(Tuple):
     
     @staticmethod
     def cross_product(v1, v2):
-        raise ValueError("Dot product is not defined for Color objects.")
-    
+        raise ValueError("Cross product is not defined for Color objects.")
 
-
-    
     def __repr__(self):
         return f"Color({self.x}, {self.y}, {self.z})"
+    
+    
     

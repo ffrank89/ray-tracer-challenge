@@ -1,6 +1,7 @@
 import unittest
-import math
+from math import sqrt
 from raytracer.tuples import Tuple, Point, Vector
+from raytracer.color import Color
 
 class TupleTests(unittest.TestCase):
 
@@ -74,9 +75,9 @@ class TupleTests(unittest.TestCase):
         v = Vector(0,0,1)
         self.assertTrue(v.magnitude() == 1)
         v = Vector(1,2,3)
-        self.assertTrue(v.magnitude() == math.sqrt(14))
+        self.assertTrue(v.magnitude() == sqrt(14))
         v = Vector(-1,-2,-3)
-        self.assertTrue(v.magnitude() == math.sqrt(14))
+        self.assertTrue(v.magnitude() == sqrt(14))
 
     def test_normalization(self):
         v = Vector(4,0,0)
@@ -95,7 +96,25 @@ class TupleTests(unittest.TestCase):
         v2 = Vector(2,3,4)
         self.assertTrue(Tuple.cross_product(v1, v2) == Vector(-1,2,-1))
         self.assertTrue(Tuple.cross_product(v2, v1) == Vector(1,-2,1))
+    
+    def test_reflecting_vector_approacing_at_45_degrees(self):
+        v = Vector(1,-1,0)
+        n = Vector(0,1,0)
+        r = v.reflect(n)
+        self.assertEqual(r, Vector(1,1,0))
 
+    def test_reflecting_vector_off_slanted_surface(self):
+        v = Vector(0,-1,0)
+        n = Vector(sqrt(2)/2,sqrt(2)/2,0)
+        r = v.reflect(n)
+        self.assertEqual(r, Vector(1,0,0))
+
+    def test_point_light(self):
+        intensity = Color(1,1,1)
+        position = Point(0,0,0)
+        light = position.point_light(intensity)
+        self.assertEqual(light.position, position)
+        self.assertEqual(light.intensity, intensity)
     
 
     

@@ -3,10 +3,10 @@ from raytracer.tuples import Point, Vector
 from raytracer.ray import Ray
 from raytracer.sphere import Sphere
 from raytracer.intersection import Intersection
-from raytracer.transformations import Translation, Scaling
+from raytracer.transformations import Translation, Scaling, Rotation_Z, Rotation_Y, Rotation_X
 from raytracer.matrix import IDENTITY
 
-from math import sqrt
+from math import sqrt, pi
 
 class SphereTests(unittest.TestCase):
 
@@ -34,7 +34,21 @@ class SphereTests(unittest.TestCase):
         s = Sphere()
         n = s.normal_at(Point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3))
         self.assertTrue(n, n.normalize())
+
+    def test_compute_normal_on_translated_sphere(self):
+        s = Sphere()
+        s.set_transform(Translation(0,1,0))
+        n = s.normal_at(Point(0, 1.70711, -0.70711))
+        self.assertEqual(n, Vector(0, 0.70711, -0.70711))
+
+    def test_compute_normal_on_transformed_sphere(self):
+        s = Sphere()
+        m = Scaling(1, 0.5, 1).matrix_multiply(Rotation_Z(pi/5))
     
+        s.set_transform(m)
+
+        n = s.normal_at(Point(0, sqrt(2)/2, -sqrt(2)/2))
+        self.assertEqual(n, Vector(0, .97014, -.24254))
 
     
     

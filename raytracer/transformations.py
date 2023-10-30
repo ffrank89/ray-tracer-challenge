@@ -1,4 +1,6 @@
 from raytracer.matrix import *
+from raytracer.tuples import Point, Vector
+
 from math import sin, cos
 
 
@@ -68,3 +70,17 @@ class Shearing(Matrix):
             [0, 0, 0, 1]
         ]
         self.data = translation_matrix
+
+def view_transform(fromm: Point, to: Point, up: Vector):
+    forward = (to - fromm).normalize()
+    upn = up.normalize()
+    left = Tuple.cross_product(forward, upn)
+    true_up = Tuple.cross_product(left, forward)
+    orientation_data = [
+        [left.x, left.y, left.z, 0],
+        [true_up.x, true_up.y, true_up.z, 0],
+        [-forward.x, -forward.y, -forward.z, 0],
+        [0, 0, 0, 1]
+    ]
+    orientation = Matrix(4, orientation_data)
+    return orientation.matrix_multiply(Translation(-fromm.x,-fromm.y,-fromm.z))
