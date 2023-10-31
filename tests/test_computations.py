@@ -4,6 +4,7 @@ from raytracer.ray import *
 from raytracer.sphere import *
 from raytracer.intersection import *
 from raytracer.computations import *
+from raytracer.transformations import *
 
 
 class TestComputations(unittest.TestCase):
@@ -38,6 +39,14 @@ class TestComputations(unittest.TestCase):
         self.assertEqual(comps.normalv, Vector(0,0,-1))
 
     
+    def test_hit_offset_the_point(self):
+        EPSILON = 1e-4
+
+        r = Ray(Point(0,0,-5), Vector(0,0,1))
+        shape = Sphere(transform=Translation(0,0,1))
+        i = Intersection(5, shape)
+        comps = prepare_computations(i,r)
+        self.assertTrue(comps.point.z < -EPSILON/2)
 
 
 

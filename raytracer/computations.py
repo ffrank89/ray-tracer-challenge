@@ -15,6 +15,8 @@ class Computations:
 
 
 def prepare_computations(i: Intersection, r: Ray):
+
+    EPSILON = 1e-4
     t = i.t
     object = i.object
     point = r.position(t)
@@ -27,5 +29,6 @@ def prepare_computations(i: Intersection, r: Ray):
     else:
         inside = False
 
-    comps = Computations(t,object,point,eyev,normalv,inside)
+    over_point = point + normalv.scale(EPSILON)
+    comps = Computations(t,object,over_point,eyev,normalv,inside)
     return comps

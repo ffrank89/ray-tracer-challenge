@@ -28,13 +28,13 @@ def main():
     right_wall = Sphere(material=floor.material, transform=rwt)
 
     #middle sphere is unit sphere translated upward and colored green
-    middle = Sphere(transform=Translation(.5,1,.5), material=Material(color=Color(.1,1,.5), diffuse=.7, specular=.3))
+    middle = Sphere(transform=Translation(-.5,1,.5), material=Material(color=Color(.1,1,.5), diffuse=.7, specular=.3))
 
     #Smaller green sphere on the right is scaled in half
-    right = Sphere(transform=Translation(-.1,.7,-.5).matrix_multiply(Scaling(.2,.2,.2)), material=Material(color=Color(.5,1,.1), diffuse=.7, specular=.3))
+    right = Sphere(transform=Translation(1.5,.5,-.5).matrix_multiply(Scaling(.5,.5,.5)), material=Material(color=Color(.5,1,.1), diffuse=.7, specular=.3))
 
     #smallest sphere is scaled by a third before being translated
-    left = Sphere(transform=Translation(-1,.7,-.75).matrix_multiply(Scaling(.2,.2,.2)), material=Material(color=Color(1,.8,.1), diffuse=.7, specular=.3))
+    left = Sphere(transform=Translation(-1.5,.33,-.75).matrix_multiply(Scaling(.33,.33,.33)), material=Material(color=Color(1,.8,.1), diffuse=.7, specular=.3))
 
     objects = []
     objects.append(floor)

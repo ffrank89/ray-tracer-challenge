@@ -1,6 +1,9 @@
 import unittest
 from raytracer.world import *
 from raytracer.computations import *
+from raytracer.material import *
+from raytracer.matrix import *
+from raytracer.transformations import *
 
 class TestWorld(unittest.TestCase):
     def test_world(self):
@@ -78,6 +81,39 @@ class TestWorld(unittest.TestCase):
         r = Ray(Point(0,0,.75), Vector(0,0,-1))
         c = w.color_at(r)
         self.assertEquals(c, inner.material.color)
+
+    def test_nothing_between_point_and_light(self):
+        w = default_world()
+        p = Point(0, 10, 0)
+        self.assertFalse(w.is_shadowed(p))
+    
+    def test_sphere_between_point_and_light(self):
+        w = default_world()
+        p = Point(10,-10,10)
+        self.assertTrue(w.is_shadowed(p))
+    
+    def test_light_between_object_and_point(self):
+        w = default_world()
+        p = Point(-20,20,-20)
+        self.assertFalse(w.is_shadowed(p))
+
+    def test_point_between_object_and_light(self):
+        w = default_world()
+        p = Point(-2,2,-2)
+        self.assertFalse(w.is_shadowed(p))
+
+    def test_shade_hit_given_intersection_in_shadow(self):
+        w = World()
+        w.light_source = Point(0,0,-10).point_light(Color(1,1,1))
+        s1 = Sphere()
+        s2 = Sphere(transform=Translation(0,0,10))
+        objects = [s1,s2]
+        w.objects = objects
+        r = Ray(Point(0,0,5), Vector(0,0,1))
+        i = Intersection(4, s2)
+        comps = prepare_computations(i, r)
+        c = w.shade_hit(comps)
+        self.assertEqual(c, Color(.1,.1,.1))        
     
 
 

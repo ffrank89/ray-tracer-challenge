@@ -21,7 +21,7 @@ class Material:
                 abs(self.specular - other.specular) < Material.EPSILON and
                 abs(self.shininess - other.shininess) < Material.EPSILON)
     
-    def lighting(self, light, point, eyev, normalv):
+    def lighting(self, light, point, eyev, normalv, in_shadow=False):
         #combine the surface color with the light's color / intensity
         effective_color = Color.hadamard_product(self.color, light.intensity)
 
@@ -53,6 +53,9 @@ class Material:
                 factor = pow(reflect_dot_eye, self.shininess)
                 specular = light.intensity.scale(self.specular).scale(factor)
         #add the three contributions together to get the final
-        return ambient + diffuse + specular
+        if in_shadow:
+            return ambient
+        else:
+            return ambient + diffuse + specular
 
     
