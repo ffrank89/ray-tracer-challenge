@@ -23,7 +23,7 @@ def main():
     lwt = Translation(0,0,5).matrix_multiply(Rotation_Y(-pi/4)).matrix_multiply(Rotation_X(pi/2)).matrix_multiply(Scaling(10,.01,10))
     left_wall = Sphere(material=floor.material, transform=lwt)
 
-    #right wall same deal but opposite rotation
+    #right wall same as above but opposite rotation
     rwt = Translation(0,0,5).matrix_multiply(Rotation_Y(pi/4)).matrix_multiply(Rotation_X(pi/2)).matrix_multiply(Scaling(10,.01,10))
     right_wall = Sphere(material=floor.material, transform=rwt)
 
@@ -48,7 +48,7 @@ def main():
     world = World()
     world.objects = objects
     world.light_source = light_source
-    camera = Camera(200, 200, pi/3)
+    camera = Camera(150, 150, pi/3)
 
     camera.transform = view_transform(Point(0, 1.5, -5), Point(0,1,0), Vector(0,1,0))
 

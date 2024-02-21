@@ -7,10 +7,6 @@ from raytracer.sphere import *
 from raytracer.computations import *
 from raytracer.transformations import Scaling
 
-
-
-
-
 class World:
     def __init__(self):
         self.objects = []
@@ -29,7 +25,7 @@ class World:
     
     def shade_hit(self, comps: Computations):
         shadowed = self.is_shadowed(comps.point)
-        return comps.object.material.lighting(self.light_source, comps.point, comps.eyev, comps.normalv, shadowed)
+        return comps.object.material.lighting(comps.object, self.light_source, comps.point, comps.eyev, comps.normalv, shadowed)
     
     def color_at(self, ray: Ray):
         intersections = self.intersect_world(ray)

@@ -58,7 +58,7 @@ def main():
                 point = r.position(hit.t)
                 normal = hit.object.normal_at(point)
                 eye = r.direction.scale(-1)
-                color = hit.object.material.lighting(light, point, eye, normal)
+                color = hit.object.material.lighting(hit.object, light, point, eye, normal)
                 canvas.write_pixel(x, y, color)
         
 

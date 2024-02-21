@@ -1,5 +1,3 @@
-from raytracer.tuples import *
-
 class Light:
 
     def __init__(self, position, intensity):

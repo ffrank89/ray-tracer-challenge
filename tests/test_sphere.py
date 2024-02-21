@@ -5,6 +5,8 @@ from raytracer.sphere import Sphere
 from raytracer.intersection import Intersection
 from raytracer.transformations import Translation, Scaling, Rotation_Z, Rotation_Y, Rotation_X
 from raytracer.matrix import IDENTITY
+from raytracer.shape import *
+
 
 from math import sqrt, pi
 
@@ -49,6 +51,9 @@ class SphereTests(unittest.TestCase):
 
         n = s.normal_at(Point(0, sqrt(2)/2, -sqrt(2)/2))
         self.assertEqual(n, Vector(0, .97014, -.24254))
+
+    def test_sphere_is_a_shape(self):
+        self.assertTrue(issubclass(Sphere, Shape))
 
     
     

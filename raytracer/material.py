@@ -4,13 +4,14 @@ class Material:
 
     EPSILON = 1e-9
     BLACK = Color(0,0,0)
-    def __init__(self, color=None, ambient=None, diffuse=None, specular=None, shininess=None):
+    def __init__(self, pattern=None, color=None, ambient=None, diffuse=None, specular=None, shininess=None):
         self.color = color if color else Color(1, 1, 1)
         self.ambient = ambient if ambient else 0.1
         self.diffuse = diffuse if diffuse else 0.9
         self.specular = specular if specular else 0.9
         #10 = large headlight 200 = small headlight
         self.shininess = shininess if shininess else 200.0
+        self.pattern = pattern if pattern else None
 
     def __eq__(self, other):
         if not isinstance(other, Material):
@@ -21,9 +22,14 @@ class Material:
                 abs(self.specular - other.specular) < Material.EPSILON and
                 abs(self.shininess - other.shininess) < Material.EPSILON)
     
-    def lighting(self, light, point, eyev, normalv, in_shadow=False):
+    def lighting(self, object, light, point, eyev, normalv, in_shadow=False):
+        
+        if self.pattern != None:
+            color = self.pattern.pattern_at_shape(object, point)
+        else:
+            color = self.color
         #combine the surface color with the light's color / intensity
-        effective_color = Color.hadamard_product(self.color, light.intensity)
+        effective_color = Color.hadamard_product(color, light.intensity)
 
         #find the direction to the light source
         lightv = (light.position - point).normalize()
