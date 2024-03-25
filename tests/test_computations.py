@@ -18,7 +18,7 @@ class TestComputations(unittest.TestCase):
         self.assertEqual(comps.object, i.object)
         self.assertEqual(comps.point, Point(0,0,-1))
         self.assertEqual(comps.eyev, Vector(0,0,-1))
-        self.assertNotEqual(comps.normalv, Vector(0,0,-1))
+        self.assertEqual(comps.normalv, Vector(0,0,-1))
     
     def test_intersection_outside(self):
         r = Ray(Point(0,0,-5), Vector(0,0,1))
