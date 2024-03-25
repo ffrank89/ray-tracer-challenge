@@ -3,6 +3,7 @@ name: Continuous Integration
 on:
   pull_request:
     branches: [main]
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
