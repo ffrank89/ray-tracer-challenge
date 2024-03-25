@@ -36,7 +36,7 @@ class TestWorld(unittest.TestCase):
         self.assertEqual(xs[1].t, 4.5)
         self.assertEqual(xs[2].t, 5.5)
         self.assertEqual(xs[3].t, 6)
-
+    
     def test_shading_intersection(self):
         w = default_world()
         r = Ray(Point(0,0,-5), Vector(0,0,1))
