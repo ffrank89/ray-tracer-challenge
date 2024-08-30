@@ -1,6 +1,7 @@
 import math
 from raytracer.tuples import Tuple
 from raytracer.color import Color
+from PIL import Image
 
 class Canvas:
     
@@ -57,5 +58,18 @@ class Canvas:
                     line = ''
 
         return '\n'.join(lines) + '\n'
+    
+    def canvas_to_png(self, file_path):
+        img = Image.new("RGB", (self.width, self.height))
+        pixels = img.load()
+        for row in self.pixels:
+            for color in row:
+                red = self.clamp_color_value(color.x)
+                green = self.clamp_color_value(color.y)
+                blue = self.clamp_color_value(color.z)
+                pixels[row, color] = (red, green, blue)
+        img.save(file_path)
+
+
     
     
